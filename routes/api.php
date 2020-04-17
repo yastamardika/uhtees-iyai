@@ -17,17 +17,18 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@login');
+
+Route::post('register', 'UserController@register'); //route untuk registrasi user baru
+Route::post('login', 'UserController@login'); //route untuk login user
 
 
-Route::group(['middleware' => 'jwt.verify'], function () {
-    Route::get('semuauser', 'UserController@getAllUser');
-    Route::get('user', 'UserController@getAuthenticatedUser');
-    Route::put('user/{id}','UserController@changeUserData');
+Route::group(['middleware' => 'jwt.verify'], function () { //middleware untuk verifikasi jwt
+    Route::get('semuauser', 'UserController@getAllUser'); //route lihat semua user
+    Route::get('user', 'UserController@getAuthenticatedUser'); //route lihat current user
+    Route::put('user/{id}','UserController@changeUserData'); //route ganti data user
 
-    Route::get('semuasosmed', 'SocMedController@daftarSosmed');
+    Route::get('semuasosmed', 'SocMedController@daftarSosmed'); //
     Route::post('tambahsosmed', 'SocMedController@store');
     Route::put('editsosmed/{id}','SocMedController@update');
-    Route::delete('hapusakun/{id}', 'SocmedController@destroy');
+    Route::delete('hapussosmed/{id}', 'SocmedController@destroy');
 });

@@ -43,7 +43,7 @@ class SocMedController extends Controller
         return $sosmed;
     }
 
-    public function store(Request $request)
+    public function store(Request $request) //fungsi untuk input sosmed baru
     {
         $sosmed = new SocMed();
         $sosmed->social_media = $request->social_media;
@@ -61,7 +61,7 @@ class SocMedController extends Controller
             ], 500);
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id) //fungsi untuk update sosmed
     {
         $sosmed = $this->user->sosmed()->find($id);
 
@@ -88,7 +88,7 @@ class SocMedController extends Controller
         }
     }
 
-    public function destroy($id)
+    public function destroy($id) //delete sosmed dengan parameter id
     {  $sosmed = $this->user->sosmed()->find($id);
 
 

@@ -12,21 +12,6 @@ use Illuminate\Support\Facades\Validator;
 class UserController extends Controller
 {
 
-    public function login(Request $request)
-    {
-        $credentials = $request->only('email', 'password');
-
-        try {
-            if (! $token = JWTAuth::attempt($credentials)) {
-                return response()->json(['error' => 'hayooooooo'], 400);
-            }
-        } catch (JWTException $e) {
-            return response()->json(['error' => 'gabisa bikin token'], 500);
-        }
-
-        return response()->json(compact('token'));
-    }
-
     public function register(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -48,6 +33,21 @@ class UserController extends Controller
         $token = JWTAuth::fromUser($user);
 
         return response()->json(compact('user','token'),201);
+    }
+
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        try {
+            if (! $token = JWTAuth::attempt($credentials)) {
+                return response()->json(['error' => 'hayooooooo'], 400);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'gabisa bikin token'], 500);
+        }
+
+        return response()->json(compact('token'));
     }
 
     public function getAuthenticatedUser()
